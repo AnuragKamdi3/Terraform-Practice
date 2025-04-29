@@ -18,8 +18,8 @@ resource "aws_iam_policy" "s3_access_policy" {
             ]
         Effect   = "Allow"
         Resource = [
-            "arn:aws:s3:::multicloudnareshitveeraa",
-            "arn:aws:s3:::multicloudnareshitveeraa/*"
+            "arn:aws:s3:::anuragkamdi3",
+            "arn:aws:s3:::anuragkamdi3/*"
         ]
         }]
     })
@@ -56,6 +56,7 @@ resource "aws_iam_instance_profile" "ec2_instance_profile" {
 resource "aws_instance" "web_server" {
     ami                    = "ami-0f1dcc636b69a6438" # update AMI as necessary
     instance_type          = "t2.micro"
+    availability_zone      = "ap-south-1a" 
     key_name               = aws_key_pair.example.key_name
     vpc_security_group_ids = [aws_security_group.allow_ssh_http.id]
     iam_instance_profile   = aws_iam_instance_profile.ec2_instance_profile.name
@@ -113,7 +114,7 @@ resource "null_resource" "setup_and_upload" {
             "sudo systemctl start httpd",
             "sudo systemctl enable httpd",
             "echo '<h1>Welcome to My Web Server</h1>' | sudo tee /var/www/html/index.html",
-            "aws s3 cp /var/www/html/index.html s3://multicloudnareshitveeraa/"
+            "aws s3 cp /var/www/html/index.html s3://anuragkamdi3/"
         ]
     }
 
